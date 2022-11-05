@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  backend_users:
+    container_name: backend_users
+    networks:
+      - backs
+    build: ./users
+    command: sh -c "python3 ./users/manage.py migrate &&
+      python3 ./users/manage.py runserver 0.0.0.0:9000"
+    ports:
+        - "9000:9000"
+    volumes:
+        - .:/app
+    restart: always
+
+  backend_properties:
+    container_name: backend_properties
+    networks:
+      - backs
+    build: ./properties
+    command: sh -c "python3 ./properties/manage.py migrate &&
+      python3 ./properties/manage.py runserver 0.0.0.0:8000"
+    ports:
+        - "8000:8000"
+    volumes:
+        - .:/app
+    restart: always
+
+networks:
+      backs:
+          driver: bridge
