@@ -22,7 +22,7 @@ class UserApiIntegration(Integration):
     def preparing_session(self, session=None):
         #http.client.HTTPConnection.debuglevel = 1
         retry_strategy = Retry(
-            total=1,
+            total=3,
             backoff_factor=1,
             status_forcelist=[429, 500, 502, 503, 504],
             method_whitelist=["HEAD", "GET", "POST", "OPTIONS"]
@@ -39,7 +39,7 @@ class UserApiIntegration(Integration):
         headers = { 'Content-Type': 'application/json' }
         session = self.preparing_session()
         try:
-            response = session.post(url="http://192.168.176.3:9000/users/", json=data, headers=headers)
+            response = session.post(url="http://192.168.96.3:9000/users/", json=data, headers=headers)
             response.raise_for_status()
             data = response.json()
             data.update({'success': True})

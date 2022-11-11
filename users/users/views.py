@@ -8,7 +8,6 @@ from users.services import create_profile
 class CreateProfileAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
-        return Response({}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         serializer = CreateProfileModelSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         response = create_profile(serializer.data)

@@ -10,11 +10,10 @@ def create_property(data: Dict):
         response = create_owner(owner_data, prop)
         if response['success']:
             prop.save()
-            return {"message": "Propiedad creada", "sucess": True}
-        print(response)
+            return {"message": "Propiedad creada", "success": True}
         return response
     except Exception as e:
-        return {"message": str(e), "sucess": False}
+        return {"message": str(e), "success": False}
 
 def create_owner(data: Dict, property_: Property) -> Dict:
     response = UserApiIntegration().send_data(data)
